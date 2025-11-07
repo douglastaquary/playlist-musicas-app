@@ -7,7 +7,7 @@ import { AuthProvider } from './contexts/AuthContext';
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<PlaylistView />} />
           <Route path="/admin/login" element={<AdminLogin />} />
