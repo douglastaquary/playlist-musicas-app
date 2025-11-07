@@ -4,19 +4,15 @@ WORKDIR /backend
 
 # Copia e instala dependências do backend
 
-#COPY ./package-lock.json ./
+COPY ./package-lock.json ./
 
 COPY ./package.json ./
 
-#COPY ./tsconfig.json ./
+COPY ./tsconfig.json ./
 
-RUN ls -la
-RUN pwd
-
-RUN npm install
-
+RUN npm install 
 # Copia código fonte do backend
-COPY ./ ./
+COPY ./src ./
 RUN ls -la
 RUN pwd
 RUN npm run build
@@ -28,10 +24,15 @@ WORKDIR /backend
 ENV NODE_ENV=production
 ENV PORT=3001
 
-COPY ./package.json ./package-lock.json ./
+COPY ./package.json ./
+
+COPY ./package-lock.json ./
+
 RUN npm install --omit=dev
 
-COPY --from=builder /frontend/dist ./dist
+COPY --from=builder ../frontend/dist ./dist
+RUN ls -la
+RUN pwd
 
 EXPOSE 3001
 
