@@ -1,5 +1,4 @@
 import sqlite3 from 'sqlite3';
-import { promisify } from 'util';
 
 class Database {
   private db: sqlite3.Database;
@@ -64,8 +63,37 @@ class Database {
 export const database = new Database();
 export const db = database.getDb();
 
-// Promisify para facilitar o uso
-export const dbRun = promisify(db.run.bind(db));
-export const dbGet = promisify(db.get.bind(db));
-export const dbAll = promisify(db.all.bind(db));
+// Wrappers com Promise para facilitar o uso com async/await
+export const dbRun = (sql: string, params: any[] = []): Promise<void> =>
+  new Promise((resolve, reject) => {
+    db.run(sql, params, function (err) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve();
+    });
+  });
+
+export const dbGet = <T = any>(sql: string, params: any[] = []): Promise<T | undefined> =>
+  new Promise((resolve, reject) => {
+    db.get(sql, params, (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(row as T | undefined);
+    });
+  });
+
+export const dbAll = <T = any>(sql: string, params: any[] = []): Promise<T[]> =>
+  new Promise((resolve, reject) => {
+    db.all(sql, params, (err, rows) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(rows as T[]);
+    });
+  });
 
