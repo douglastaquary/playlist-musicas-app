@@ -2,10 +2,12 @@ FROM node:20-slim AS builder
 
 WORKDIR /app
 
-COPY package.json package-lock.json tsconfig.json ./
+# Copia e instala dependências do backend
+COPY backend/package.json backend/package-lock.json backend/tsconfig.json ./
 RUN npm install
 
-COPY src ./src
+# Copia código fonte do backend
+COPY backend/src ./src
 RUN npm run build
 
 FROM node:20-slim
@@ -15,7 +17,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3001
 
-COPY package.json package-lock.json ./
+COPY backend/package.json backend/package-lock.json ./
 RUN npm install --omit=dev
 
 COPY --from=builder /app/dist ./dist

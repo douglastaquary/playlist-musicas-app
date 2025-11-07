@@ -1,0 +1,9 @@
+.git
+.gitignore
+node_modules
+frontend
+database.sqlite
+*.log
+.env
+.DS_Store
+
