@@ -4,6 +4,8 @@ WORKDIR /backend
 
 # Copia e instala dependências do backend
 COPY ./package.json ./
+COPY ./package-lock.json ./
+COPY ./tsconfig.json ./
 RUN npm install
 
 # Copia código fonte do backend
