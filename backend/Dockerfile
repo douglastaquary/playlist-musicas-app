@@ -7,7 +7,7 @@ COPY backend/package.json backend/package-lock.json backend/tsconfig.json ./
 RUN npm install
 
 # Copia código fonte do backend
-COPY backend/src ./src
+#COPY backend/src ./src
 RUN npm run build
 
 FROM node:20-slim
