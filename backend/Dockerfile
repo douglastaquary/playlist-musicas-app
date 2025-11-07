@@ -18,7 +18,8 @@ ENV NODE_ENV=production
 ENV PORT=3001
 
 #COPY backend/package.json backend/package-lock.json ./
-RUN npm install --omit=dev
+RUN npm install 
+# --omit=dev
 
 #COPY --from=builder /frontend/dist ./dist
 
