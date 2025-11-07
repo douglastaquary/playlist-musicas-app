@@ -20,7 +20,7 @@ ENV PORT=3001
 #COPY ./backend/package.json ./backend/package-lock.json ./
 #RUN npm install --omit=dev
 
-COPY --from=builder ./frontend/dist ./dist
+#COPY --from=builder ./frontend/dist ./dist
 
 EXPOSE 3001
 
