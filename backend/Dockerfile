@@ -3,11 +3,11 @@ FROM node:20-slim AS builder
 WORKDIR /backend
 
 # Copia e instala dependências do backend
-COPY ./package.json ./package-lock.json ./tsconfig.json ./
+COPY ./package.json ./
 RUN npm install
 
 # Copia código fonte do backend
-#COPY ./src ./src
+COPY ./ ./
 RUN npm run build
 
 FROM node:20-slim
